@@ -20,10 +20,10 @@ import lombok.ToString;
 @Table(name="PROFESSEUR")
 @AllArgsConstructor()
 @NoArgsConstructor()
-@ToString()	
+@ToString()
 public class Professeur {
-	
-	@Id 
+
+	@Id
 	@Getter @Setter private int cin;
 	@Column
 	@Getter @Setter private String nom;
@@ -35,25 +35,25 @@ public class Professeur {
 	@Getter @Setter private String mdp;
 	@Column
 	@Getter @Setter private int tel;
-	
+
 	@Column
-	@Getter @Setter private int capacite ; 
+	@Getter @Setter private int capacite ;
 	@Column
-	@Getter @Setter private String specialite ; 
+	@Getter @Setter private String specialite ;
 	@Column
-	@Getter @Setter private String information ; 
+	@Getter @Setter private String information ;
 //	@Column
-	//@Getter @Setter private ArrayList <Etudiant> etudiants ; 
-	
-	
-	
+	//@Getter @Setter private ArrayList <Etudiant> etudiants ;
+
+
+
 	public void afficherProf() {
-		
+
 		System.out.println("CIN:       \t"+cin);
 		System.out.println("Nom:       \t"+nom);
 		System.out.println("Prenom:    \t"+prenom);
 		System.out.println("Email:     \t"+email);
-		System.out.println("Tel:       \t"+tel);		
+		System.out.println("Tel:       \t"+tel);
 		System.out.println("Capacité:      \t"+capacite);
 		System.out.println("Specialité:    \t"+specialite);
 		System.out.println("Information:   \t"+information);
@@ -62,27 +62,25 @@ public class Professeur {
 
 
 
-		
+
 	}
-	
+
 	public boolean accepterEtud() {
-		return true ; 
+		return true ;
 	}
 	public boolean refuserEtud() {
-		return true ; 
+		return true ;
 	}
-	/*public Etudiant chercherEtud() { 
-		return  ; 
+	/*public Etudiant chercherEtud() {
+		return  ;
 	} */
 	public boolean testerCapacite() {
-		return true ; 
+		return true ;
 	}
 	public void afficherEtudiant() {}
-	
-	
-	
-	
-	
+
+
+
+
+
 }
-
-
