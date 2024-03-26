@@ -17,7 +17,7 @@
 	</distributionManagement>
 	<groupId>Robots.enicar</groupId>
 	<artifactId>GestionDesStages</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>GestionDesStages</name>
 	<description>Projet gestion de stage Enicar</description>
 	<properties>
