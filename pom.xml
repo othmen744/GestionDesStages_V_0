@@ -12,7 +12,7 @@
 		<repository>
 			<id>deploymentRepo</id>
 			<name>gestion-stage-artifact</name>
-			<url>192.168.33.10:8081/repository/gestion-stage-artifact/</url>
+			<url>http://192.168.33.10:8081/#admin/repository/repositories</url>
 		</repository>
 	</distributionManagement>
 	<groupId>Robots.enicar</groupId>
