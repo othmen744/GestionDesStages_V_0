@@ -11,8 +11,8 @@
 	<distributionManagement>
 		<repository>
 			<id>deploymentRepo</id>
-			<name>gestion-stage-artifact</name>
-			<url>http://192.168.33.10:8081/#admin/repository/repositories</url>
+			<name>Nexus Repository</name>
+			<url>http://192.168.33.10:8081/repository/repositories/maven-releases</url>
 		</repository>
 	</distributionManagement>
 	<groupId>Robots.enicar</groupId>
