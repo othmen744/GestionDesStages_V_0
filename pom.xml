@@ -8,6 +8,13 @@
 		<version>3.0.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<distributionManagement>
+		<repository>
+			<id>deploymentRepo</id>
+			<name>Nexus Repository</name>
+			<url>http://192.168.33.10:8081/repository/gestion-stage-artifact/</url>
+		</repository>
+	</distributionManagement>
 	<groupId>Robots.enicar</groupId>
 	<artifactId>GestionDesStages</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -83,6 +90,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<finalName>aa</finalName>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
