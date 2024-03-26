@@ -12,12 +12,12 @@
 		<repository>
 			<id>deploymentRepo</id>
 			<name>Nexus Repository</name>
-			<url>http://192.168.33.10:8081/repository/repositories/maven-releases</url>
+			<url>http://192.168.33.10:8081/repository/maven-releases</url>
 		</repository>
 	</distributionManagement>
 	<groupId>Robots.enicar</groupId>
 	<artifactId>GestionDesStages</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>GestionDesStages</name>
 	<description>Projet gestion de stage Enicar</description>
 	<properties>
