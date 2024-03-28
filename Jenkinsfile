@@ -40,7 +40,7 @@ pipeline {
                             nexusVersion: 'nexus3',
                             protocol: 'http',
                             nexusUrl: 'http://192.168.33.10:8081',
-                            groupId: 'Robots.enicar',
+                            groupId: 'deploymentRepo',
                             version: version,
                             repository: 'deploymentRepo',
                             credentialsId: 'nexus-auth',
