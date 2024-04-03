@@ -37,6 +37,9 @@ agent any
         }
     }
 }
+        stage ('Deploy on this Server') {
+            deploy adapters: [tomcat9(credentialsId: 'TOMCAT_CREDENTIAL_IN_SETTINGS', path: '', url: 'http://localhost:8085')], contextPath: null, war: '**/*.war'
+        }
 
     }
 }
