@@ -37,11 +37,11 @@ agent any
         }
     }
 }
-        stage ('Deploy on this Server') {
-            steps{
-            deploy adapters: [tomcat9(credentialsId: 'TOMCAT_CREDENTIAL_IN_SETTINGS', path: '', url: 'http://192.168.33.10:9090')], contextPath: null, jar: '**/*.jar'
-        }
-
+      stage ('Deploy on this Server') {
+    steps {
+        deploy adapters: [tomcat9(credentialsId: 'TOMCAT_CREDENTIAL_IN_SETTINGS', path: '', url: 'http://192.168.33.10:9090')], contextPath: null, war: '**/*.war'
     }
+}
+
 }
 }
