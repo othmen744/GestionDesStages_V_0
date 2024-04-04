@@ -44,7 +44,7 @@ agent any
                     sh 'wget -O app.jar http://192.168.33.10:8081/repository/deploymentRepo/Robots/enicar/GestionDesStages/0.0.1/GestionDesStages-0.0.1.jar'
                     
                     // Deploy the downloaded JAR file to Tomcat
-                    sh "curl -u admin:othmen199800 -T app.jar http://192.168.33.10:9090/manager/text/deploy?path=/GestionDesStages"
+                    sh "curl -u admin:othmen199800 -T app.jar http://192.168.33.10:9090/manager/text/deploy?path=/GestionDesStages-0.0.1.jar"
                 }
             }
         }
