@@ -37,17 +37,26 @@ agent any
         }
     }
 }
-   stage('Deploy to Tomcat') {
-            steps {
-                script {
-                    // Download the JAR file from Nexus
-                    sh 'wget -O app.jar http://192.168.33.10:8081/repository/deploymentRepo/Robots/enicar/GestionDesStages/0.0.1/GestionDesStages-0.0.1.jar'
-                    
-                    // Deploy the downloaded JAR file to Tomcat
-                    sh "curl -u admin:othmen199800 -T app.jar http://192.168.33.10:9090/manager/text/deploy?path=/GestionDesStages"
-                }
-            }
+   stage('Undeploy Existing Application') {
+    steps {
+        script {
+            sh "curl -u admin:othmen199800 http://192.168.33.10:9090/manager/text/undeploy?path=/GestionDesStages"
         }
+    }
+}
+
+stage('Deploy to Tomcat') {
+    steps {
+        script {
+            // Download the JAR file from Nexus
+            sh 'wget -O app.jar http://192.168.1.15:8081/repository/deploymentRepo/Robots/enicar/GestionDesStages/0.0.1/GestionDesStages-0.0.1.jar'
+            
+            // Deploy the downloaded JAR file to Tomcat (adjust the context path)
+            sh "curl -u admin:othmen199800 -T app.jar http://192.168.33.10:9090/manager/text/deploy?path=/GestionDesStages"
+        }
+    }
+}
+
 
 }
 }
