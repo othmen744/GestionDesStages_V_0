@@ -2,7 +2,7 @@
 FROM maven:3.8.2-openjdk-17 AS build
 
 # Set the working directory inside the container
-WORKDIR /home/vagrant/GestionDesStages_V_0
+WORKDIR /GestionDesStages_V_0
 
 # Copy the pom.xml file to the container
 COPY pom.xml .
@@ -23,7 +23,7 @@ FROM openjdk:8-jdk-alpine
 WORKDIR /app
 
 # Copy the JAR file built in the previous stage to the container
-COPY --from=build /home/vagrant/GestionDesStages_V_0/target/GestionDesStages-0.0.1-SNAPSHOT.jar /app/GestionDesStages-0.0.1-SNAPSHOT.jar
+COPY --from=build /GestionDesStages_V_0/target/GestionDesStages-0.0.1-SNAPSHOT.jar /app/GestionDesStages-0.0.1-SNAPSHOT.jar
 
 # Expose the port that your application runs on
 EXPOSE 8000
