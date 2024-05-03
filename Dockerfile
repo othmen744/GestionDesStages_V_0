@@ -22,7 +22,7 @@ FROM openjdk:8-jdk-alpine
 WORKDIR /app
 
 # Copy the JAR file built in the previous stage to the container
-COPY --from=build /app/target/GestionDesStages-0.0.1-SNAPSHOT.jar /app/
+COPY --from=build /home/vagrant/GestionDesStages_V_0/target/GestionDesStages-0.0.1-SNAPSHOT.jar /app/GestionDesStages-0.0.1-SNAPSHOT.jar
 
 # Expose the port that your application runs on
 EXPOSE 8080
