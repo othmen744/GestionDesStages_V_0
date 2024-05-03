@@ -22,9 +22,11 @@ FROM openjdk:8-jdk-alpine
 # Set the working directory inside the container
 WORKDIR /app
 
+# Ensure that the /app directory exists
+RUN mkdir -p /app
+
 # Copy the JAR file built in the previous stage to the container
 COPY /home/vagrant/GestionDesStages_V_0/target/GestionDesStages-0.0.1-SNAPSHOT.jar /app/GestionDesStages-0.0.1-SNAPSHOT.jar
-
 
 # Expose the port that your application runs on
 EXPOSE 8000
