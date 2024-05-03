@@ -43,7 +43,16 @@ agent any
             sh 'mvn deploy'
         }
     }
+
+        
 }
+         stage('Build Docker Image') {
+                    steps {
+                        script {
+                            docker.build('back-end')  // Replace 'your-image-name' with your desired image name
+                        }
+                    }
+                }
    stage('Undeploy Existing Application') {
     steps {
         script {
