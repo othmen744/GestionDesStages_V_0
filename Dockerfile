@@ -1,8 +1,7 @@
-# Use a Maven image as the base image
 FROM maven:3.8.2-openjdk-17 AS build
 
 # Set the working directory inside the container
-WORKDIR /GestionDesStages_V_0
+WORKDIR /app
 
 # Copy the pom.xml file to the container
 COPY pom.xml .
@@ -22,11 +21,8 @@ FROM openjdk:8-jdk-alpine
 # Set the working directory inside the container
 WORKDIR /app
 
-# Ensure that the /app directory exists
-RUN mkdir -p /app
-
 # Copy the JAR file built in the previous stage to the container
-COPY target/GestionDesStages-0.0.1-SNAPSHOT.jar /app/GestionDesStages-0.0.1-SNAPSHOT.jar
+COPY --from=build /app/target/GestionDesStages-0.0.1-SNAPSHOT.jar /app/
 
 # Expose the port that your application runs on
 EXPOSE 8080
