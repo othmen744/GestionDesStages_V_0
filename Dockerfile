@@ -1,5 +1,5 @@
 # Use a Maven image as the base image
-FROM maven:3.8.2-jdk-8 AS build
+FROM maven:3.8.2-openjdk-17 AS build
 
 # Set the working directory inside the container
 WORKDIR /home/vagrant/GestionDesStages_V_0
