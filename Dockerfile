@@ -26,7 +26,7 @@ WORKDIR /app
 RUN mkdir -p /app
 
 # Copy the JAR file built in the previous stage to the container
-COPY /GestionDesStages_V_0/target/GestionDesStages-0.0.1-SNAPSHOT.jar /app/GestionDesStages-0.0.1-SNAPSHOT.jar
+COPY target/GestionDesStages-0.0.1-SNAPSHOT.jar /app/GestionDesStages-0.0.1-SNAPSHOT.jar
 
 # Expose the port that your application runs on
 EXPOSE 8080
