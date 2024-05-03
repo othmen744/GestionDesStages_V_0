@@ -29,7 +29,7 @@ RUN mkdir -p /app
 COPY /GestionDesStages_V_0/target/GestionDesStages-0.0.1-SNAPSHOT.jar /app/GestionDesStages-0.0.1-SNAPSHOT.jar
 
 # Expose the port that your application runs on
-EXPOSE 8000
+EXPOSE 8080
 
 # Specify the command to run your application
 CMD ["java", "-jar", "GestionDesStages-0.0.1-SNAPSHOT.jar"]
