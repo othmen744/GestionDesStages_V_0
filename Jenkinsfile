@@ -42,10 +42,15 @@ agent any
          stage('Build Docker Image') {
                     steps {
                         script {
-                            docker.build('back-end')  // Replace 'your-image-name' with your desired image name
+                            sh 'docker build -t oth007/GestionDesStages_V_0:karoui .'
                         }
                     }
                 }
+        stage('login dockerhub') {
+                                        steps {
+				sh 'docker login -u oth007 --password othmen199800'
+                                            }
+		  }
    stage('Undeploy Existing Application') {
     steps {
         script {
