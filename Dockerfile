@@ -7,6 +7,7 @@ RUN mvn clean install
 # Stage 2: Create final image
 FROM maven:3.8.2-openjdk-17 
 WORKDIR /app
+RUN mvn clean compile
 COPY --from=build /GestionDesStages_V_0/target/GestionDesStages-0.0.1.jar /app/
 EXPOSE 8000
 CMD ["java", "-jar", "GestionDesStages-0.0.1.jar"]
