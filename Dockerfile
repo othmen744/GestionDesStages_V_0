@@ -1,12 +1,12 @@
-# Stage 1: Build stage (using Maven)
-FROM maven:3.8.2-jdk-17 AS build
-WORKDIR /app
+# Stage 1: Build with Maven
+FROM maven:3.8.2-openjdk-17 AS build
+WORKDIR /GestionDesStages_V_0
 COPY . .
-RUN mvn clean install -DskipTests
+RUN mvn clean install
 
 # Stage 2: Create final image
-FROM openjdk:17-jdk-slim
+FROM adoptopenjdk:17-jdk-hotspot
 WORKDIR /app
-COPY --from=build /app/target/GestionDesStages-0.0.1.jar /app/
+COPY --from=build /GestionDesStages_V_0/target/GestionDesStages-0.0.1.jar /app/
 EXPOSE 8000
 CMD ["java", "-jar", "GestionDesStages-0.0.1.jar"]
