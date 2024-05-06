@@ -1,5 +1,5 @@
 # Stage 1: Build with Maven
-FROM maven as build
+FROM maven:3.8.2-jdk-8 as build
 WORKDIR /GestionDesStages_V_0
 COPY . .
 RUN mvn clean install
