@@ -42,7 +42,7 @@ agent any
          stage('Build Docker Image') {
                     steps {
                         script {
-                            sh 'docker build -t oth007/GestionDesStages_V_0:karoui .'
+                            sh 'docker build -t oth007/gestiondesstages_v_0:karoui .'
                         }
                     }
                 }
