@@ -5,7 +5,6 @@ COPY . .
 RUN mvn clean install
 
 # Stage 2: Create final image
-FROM adoptopenjdk:17-jdk-hotspot
 WORKDIR /app
 COPY --from=build /GestionDesStages_V_0/target/GestionDesStages-0.0.1.jar /app/
 EXPOSE 8000
