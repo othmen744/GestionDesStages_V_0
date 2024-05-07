@@ -51,6 +51,11 @@ agent any
 				sh 'docker login -u oth007 --password othmen199800'
                                             }
 		  }
+	      stage('Push Docker Image') {
+                                        steps {
+                                   sh 'docker push oth007/gestiondesstages_v_0:karoui'
+                                            }
+		  }
    stage('Undeploy Existing Application') {
     steps {
         script {
