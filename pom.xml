@@ -91,7 +91,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>GestionDesStages_V_0.PorjGestionStagesApplication</mainClass>
-					<finalName>aa</finalName>
+					<finalName>GestionDesStages-0.0.1</finalName>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
