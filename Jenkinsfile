@@ -1,5 +1,8 @@
 pipeline: pipeline {
 agent any
+	environment {
+        TOMCAT_PORT = '9090'
+    }
 
     stages {
         stage('Checkout') {
@@ -64,17 +67,20 @@ agent any
     }
 }
 
-stage('Deploy to Tomcat') {
-    steps {
-        script {
-            // Download the JAR file from Nexus
-            sh 'wget -O app.jar http://192.168.1.15:8081/repository/deploymentRepo/Robots/enicar/GestionDesStages/0.0.1/GestionDesStages-0.0.1.jar'
-            
-            // Deploy the downloaded JAR file to Tomcat (adjust the context path)
-            sh "curl -u admin:othmen199800 -T app.jar http://192.168.33.10:9090/manager/text/deploy?path=/GestionDesStages"
+ stage('Deploy Docker Image to Tomcat') {
+            steps {
+                script {
+                    // Pull the Docker image from Docker Hub
+                    sh 'docker pull oth007/gestiondesstages_v_0:karoui'
+                    
+                    // Tag the Docker image for deployment
+                    sh 'docker tag oth007/gestiondesstages_v_0:karoui gestiondesstages_v_0_karoui'
+                    
+                    // Deploy the Docker image to Tomcat using the manager interface
+                    sh "curl -u admin:othmen199800 -T app.jar http://localhost:${env.TOMCAT_PORT}/manager/text/deploy?path=/GestionDesStages"
+                }
+            }
         }
-    }
-}
 
 
 }
