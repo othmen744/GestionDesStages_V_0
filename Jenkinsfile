@@ -36,7 +36,7 @@ agent any
        stage('Deploy to Nexus') {
     steps {
         script {
-            sh 'mvn -X deploy'
+            sh 'mvn deploy'
         }
     }       
 }
