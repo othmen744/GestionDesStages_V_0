@@ -59,6 +59,19 @@ agent any
                                    sh 'docker push oth007/gestiondesstages_v_0:karoui'
                                             }
 		  }
+	    stage('Setup MySQL') {
+            steps {
+                script {
+                    // Check if the network exists, if not create it
+                    def networkExists = sh(script: 'docker network ls | grep my-network', returnStatus: true) == 0
+                    if (!networkExists) {
+                        sh 'docker network create my-network'
+                    }
+                    // Run the MySQL container
+                    sh 'docker run --name mysql-container --network my-network -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=pfe -d mysql:8.0.32'
+                }
+            }
+        }
    stage('Undeploy Existing Application') {
     steps {
         script {
