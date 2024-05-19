@@ -36,11 +36,9 @@ agent any
        stage('Deploy to Nexus') {
     steps {
         script {
-            sh 'mvn deploy'
+            sh 'mvn -X deploy'
         }
-    }
-
-        
+    }       
 }
          stage('Build Docker Image') {
                     steps {
