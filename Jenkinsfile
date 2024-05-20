@@ -57,5 +57,32 @@ pipeline {
                 sh 'docker push oth007/gestiondesstages_v_0:karoui'
             }
         }
+        
+        stage('Update Docker Image') {
+    steps {
+        script {
+            // Remove old Docker container if it exists
+            sh 'docker rm -f gestiondesstages_container || true' // '|| true' prevents pipeline failure if container doesn't exist
+
+            // Pull the latest Docker image
+            sh 'docker pull oth007/gestiondesstages_v_0:karoui'
+
+            // Run the updated Docker container
+        }
+    }
+}
+        stage('Pull MySQL Image') {
+    steps {
+        script {
+            // Check if there are existing MySQL containers and delete them
+            sh 'docker ps -a -q --filter ancestor=mysql | xargs docker rm -f || true' // '|| true' prevents pipeline failure if no containers are found
+
+            // Pull the latest MySQL image
+            sh 'docker pull mysql:latest'
+        }
+    }
+}
+
+        
     }
 }
