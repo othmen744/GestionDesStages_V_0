@@ -71,11 +71,17 @@ pipeline {
         }
     }
 }
-        stage('Pull MySQL Image') {
+ stage('Pull MySQL Image') {
     steps {
         script {
-            // Check if there are existing MySQL containers and delete them
-            sh 'docker ps -a -q --filter ancestor=mysql | xargs docker rm -f || true' // '|| true' prevents pipeline failure if no containers are found
+            // Stop and remove any existing MySQL containers
+            sh '''
+            existing_mysql_containers=$(docker ps -q --filter ancestor=mysql)
+            if [ ! -z "$existing_mysql_containers" ]; then
+                docker stop $existing_mysql_containers
+                docker rm $existing_mysql_containers
+            fi
+            '''
 
             // Pull the latest MySQL image
             sh 'docker pull mysql:latest'
