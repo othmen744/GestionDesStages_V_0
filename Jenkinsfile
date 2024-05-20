@@ -32,7 +32,11 @@ agent any
     }
 }
 
-
+      stage('Deploy to Nexus') {
+            steps {
+                sh 'mvn deploy' // Deploy to Nexus Repository Manager
+            }
+        }
       
          stage('Build Docker Image') {
                     steps {
