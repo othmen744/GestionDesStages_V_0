@@ -69,23 +69,5 @@ pipeline {
                 }
             }
         }
-
-        stage('Undeploy Existing Application') {
-            steps {
-                script {
-                    sh "curl -u admin:othmen199800 http://192.168.33.10:9090/manager/text/undeploy?path=/GestionDesStages"
-                }
-            }
-        }
-
-        stage('Deploy Docker Image to Tomcat') {
-            steps {
-                script {
-                    sh 'docker pull oth007/gestiondesstages_v_0:karoui'
-                    sh 'docker tag oth007/gestiondesstages_v_0:karoui gestiondesstages_v_0_karoui'
-                    sh "curl -u admin:othmen199800 -T app.jar http://localhost:${env.TOMCAT_PORT}/manager/text/deploy?path=/GestionDesStages"
-                }
-            }
-        }
     }
 }
