@@ -34,7 +34,7 @@ pipeline {
 
         stage('Deploy to Nexus') {
             steps {
-                sh "mvn deploy --settings ${env.MAVEN_SETTINGS}"
+                sh "mvn deploy -Dusername=admin -Dpassword=othmen199800"
             }
         }
 
