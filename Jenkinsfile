@@ -18,8 +18,8 @@ pipeline {
 
         stage('Run SonarQube analysis') {
             steps {
-                withSonarQubeEnv('sonarqube-10.4.1') {
-                    sh 'mvn sonar:sonar -Dsonar.login=sqa_b6840cd936c17ce7127f90e7aa528a023b8c037e'
+                withSonarQubeEnv('sonarqube') {
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
