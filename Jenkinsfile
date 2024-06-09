@@ -91,6 +91,7 @@ pipeline {
 stage('Deploy MySQL') {
             steps {
                 script {
+                    kubectl apply -f mysql-secret.yaml
                     // Apply MySQL deployment
                     sh "kubectl apply -f mysql-deployment.yaml"
 
