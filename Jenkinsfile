@@ -88,6 +88,17 @@ pipeline {
         }
     }
 }
+stage('Deploy MySQL') {
+            steps {
+                script {
+                    // Apply MySQL deployment
+                    sh "kubectl apply -f mysql-deployment.yaml"
+
+                    // Apply MySQL service
+                    sh "kubectl apply -f mysql-service.yaml"
+                }
+            }
+        }
 stage('Deploy Backend to Kubernetes') {
             steps {
                 withKubeConfig([credentialsId: 'SECRET_TOKEN', serverUrl: 'https://10.0.0.10:6443']) {
