@@ -88,28 +88,18 @@ pipeline {
         }
     }
 }
-stage('Deploy MySQL') {
-            steps {
-                script {
-                    sh "kubectl apply -f mysql-secret.yaml"
-                    sh "kubectl apply -f mysql-storage.yaml"
-
-                    // Apply MySQL deployment
-                    sh "kubectl apply -f mysql-deployment.yaml"
-
-                    // Apply MySQL service
-                    sh "kubectl apply -f mysql-service.yaml"
-                }
-            }
-        }
 stage('Deploy Backend to Kubernetes') {
             steps {
                 withKubeConfig([credentialsId: 'SECRET_TOKEN', serverUrl: 'https://10.0.0.10:6443']) {
                     sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                     sh 'chmod u+x ./kubectl'
-                    sh './kubectl apply -f deployment-backend.yaml'
-                    sh './kubectl apply -f backend-service.yaml'
-                    sh './kubectl get pods --namespace=default'
+                    sh 'kubectl apply -f mysql-configMap.yaml'
+                    sh 'kubectl apply -f mysql-secrets.yaml'
+                    sh 'kubectl apply -f mysql-pv-claim.yaml'
+                    sh 'kubectl apply -f mysql-deployment.yaml'
+                    sh 'kubectl apply -f mysql-service.yaml'
+                    sh 'kubectl apply -f app-deployment.yaml'
+                    sh 'kubectl apply -f app-service.yaml'
                 }
             }
         }
