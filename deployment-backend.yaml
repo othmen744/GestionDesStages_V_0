@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: oth007/gestiondesstages_v_0:latest
+          image: oth007/gestiondesstages_v_0:karoui
           ports:
             - containerPort: 8000
           env:
