@@ -17,6 +17,8 @@ spec:
       labels:
         app: mysql
         tier: database
+      annotations:
+        node-selector.kubernetes.io/role: backend-mysql  # Specify the node label to use for scheduling pods
     spec:
       containers:
         - image: mysql:latest
