@@ -3,15 +3,17 @@ kind: Deployment
 metadata:
   name: backend-deployment
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: backend-app
-  replicas: 3
   template:
     metadata:
       labels:
         app: backend-app
     spec:
+      nodeSelector:
+        role: backend-mysql   # This specifies that pods should be scheduled on nodes labeled with "role: backend-mysql"
       containers:
         - name: backend-container
           image: oth007/gestiondesstages_v_0:karoui
