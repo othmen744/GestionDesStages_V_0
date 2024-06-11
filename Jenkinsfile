@@ -4,11 +4,7 @@ pipeline {
         TOMCAT_PORT = '9090'
     }
     stages {
-        stage('Clean Workspace') {
-            steps {
-                deleteDir()
-            }
-        }
+
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/othmen744/GestionDesStages_V_0.git'
