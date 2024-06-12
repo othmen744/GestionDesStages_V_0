@@ -100,6 +100,7 @@ stage('Deploy Backend to Kubernetes') {
                         kubectl wait --for=delete pvc/mysql-pv-claim --timeout=60s
                     fi
                     '''
+                    sleep time: 60, unit: 'SECONDS'
                     sh 'kubectl apply -f mysql-storage.yaml'
                     sh 'kubectl apply -f mysql-pv.yaml'
                     sh 'kubectl apply -f mysql-configMap.yaml'
