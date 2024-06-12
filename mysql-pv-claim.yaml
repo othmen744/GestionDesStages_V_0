@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi  # Adjust this value as needed
-  storageClassName: manual
+      storage: 20Gi
