@@ -94,7 +94,12 @@ stage('Deploy Backend to Kubernetes') {
                 withKubeConfig([credentialsId: 'SECRET_TOKEN', serverUrl: 'https://10.0.0.10:6443']) {
                     sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                     sh 'chmod u+x ./kubectl'
-                    sh 'kubectl delete pvc mysql-pv-claim || true'
+                     sh '''
+                    if kubectl get pvc mysql-pv-claim; then
+                        kubectl delete pvc mysql-pv-claim
+                        kubectl wait --for=delete pvc/mysql-pv-claim --timeout=60s
+                    fi
+                    '''
                     sh 'kubectl apply -f mysql-storage.yaml'
                     sh 'kubectl apply -f mysql-pv.yaml'
                     sh 'kubectl apply -f mysql-configMap.yaml'
