@@ -95,35 +95,28 @@ stage('Deploy Backend to Kubernetes') {
                     sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                     sh 'chmod u+x ./kubectl'
                     sh '''
-                    if kubectl get pvc mysql-pv-claim; then
-                        kubectl delete pvc mysql-pv-claim
-                        kubectl wait --for=delete pvc/mysql-pv-claim --timeout=60s
-                    fi
-                    if kubectl get pv mysql-pv-volume; then
-                        kubectl delete pv mysql-pv-volume
-                        kubectl wait --for=delete pv/mysql-pv-volume --timeout=60s
-                    fi
-                    '''
-                     sh '''
                         set +e
                         ./kubectl delete pvc mysql-pv-claim --ignore-not-found=true
-                        ./kubectl wait --for=delete pvc/mysql-pv-claim --timeout=60s
                         ./kubectl delete pv mysql-pv-volume --ignore-not-found=true
-                        ./kubectl wait --for=delete pv/mysql-pv-volume --timeout=60s
+                        ./kubectl delete configmap db-config --ignore-not-found=true
+                        ./kubectl delete secret mysql-secret --ignore-not-found=true
+                        ./kubectl delete deployment mysql-deployment --ignore-not-found=true
+                        ./kubectl delete service mysql-service --ignore-not-found=true
+                        ./kubectl delete deployment backend --ignore-not-found=true
+                        ./kubectl delete service backend-service --ignore-not-found=true
                         set -e
                     '''
                     
-                    // Adding delay to ensure PVC and PV are fully cleaned up
-                    sleep time: 60, unit: 'SECONDS'
-                    sh 'kubectl apply -f mysql-storage.yaml'
-                    sh 'kubectl apply -f mysql-configMap.yaml'
-                    sh 'kubectl apply -f mysql-secrets.yaml'
-                     sh 'kubectl apply -f mysql-pv.yaml'
-                    sh 'kubectl apply -f mysql-pv-claim.yaml'
-                    sh 'kubectl apply -f mysql-deployment.yaml'
-                    sh 'kubectl apply -f mysql-service.yaml'
-                    sh 'kubectl apply -f deployment-backend.yaml'
-                    sh 'kubectl apply -f backend-service.yaml'
+                    // Reapply configurations
+                    sh './kubectl apply -f mysql-storage.yaml'
+                    sh './kubectl apply -f mysql-configMap.yaml'
+                    sh './kubectl apply -f mysql-secrets.yaml'
+                    sh './kubectl apply -f mysql-pv.yaml'
+                    sh './kubectl apply -f mysql-pv-claim.yaml'
+                    sh './kubectl apply -f mysql-deployment.yaml'
+                    sh './kubectl apply -f mysql-service.yaml'
+                    sh './kubectl apply -f deployment-backend.yaml'
+                    sh './kubectl apply -f backend-service.yaml'
                     
 
                     
