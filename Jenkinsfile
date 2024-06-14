@@ -94,10 +94,12 @@ stage('Deploy Backend to Kubernetes') {
                 withKubeConfig([credentialsId: 'SECRET_TOKEN', serverUrl: 'https://10.0.0.10:6443']) {
                     sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                     sh 'chmod u+x ./kubectl'
-                    sh '''
+                     sh '''
                         set +e
                         ./kubectl delete pvc mysql-pv-claim --ignore-not-found=true
+                        ./kubectl wait --for=delete pvc/mysql-pv-claim --timeout=60s
                         ./kubectl delete pv mysql-pv-volume --ignore-not-found=true
+                        ./kubectl wait --for=delete pv/mysql-pv-volume --timeout=60s
                         ./kubectl delete configmap db-config --ignore-not-found=true
                         ./kubectl delete secret mysql-secret --ignore-not-found=true
                         ./kubectl delete deployment mysql-deployment --ignore-not-found=true
@@ -107,17 +109,7 @@ stage('Deploy Backend to Kubernetes') {
                         set -e
                     '''
                     
-                    // Reapply configurations
-                    sh './kubectl apply -f mysql-storage.yaml'
-                    sh './kubectl apply -f mysql-configMap.yaml'
-                    sh './kubectl apply -f mysql-secrets.yaml'
-                    sh './kubectl apply -f mysql-pv.yaml'
-                    sh './kubectl apply -f mysql-pv-claim.yaml'
-                    sh './kubectl apply -f mysql-deployment.yaml'
-                    sh './kubectl apply -f mysql-service.yaml'
-                    sh './kubectl apply -f deployment-backend.yaml'
-                    sh './kubectl apply -f backend-service.yaml'
-                    
+                  
 
                     
 
