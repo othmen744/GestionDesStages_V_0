@@ -104,13 +104,21 @@ stage('Deploy Backend to Kubernetes') {
                         kubectl wait --for=delete pv/mysql-pv-volume --timeout=60s
                     fi
                     '''
+                     sh '''
+                        set +e
+                        ./kubectl delete pvc mysql-pv-claim --ignore-not-found=true
+                        ./kubectl wait --for=delete pvc/mysql-pv-claim --timeout=60s
+                        ./kubectl delete pv mysql-pv-volume --ignore-not-found=true
+                        ./kubectl wait --for=delete pv/mysql-pv-volume --timeout=60s
+                        set -e
+                    '''
                     
                     // Adding delay to ensure PVC and PV are fully cleaned up
                     sleep time: 60, unit: 'SECONDS'
                     sh 'kubectl apply -f mysql-storage.yaml'
-                    sh 'kubectl apply -f mysql-pv.yaml'
                     sh 'kubectl apply -f mysql-configMap.yaml'
                     sh 'kubectl apply -f mysql-secrets.yaml'
+                     sh 'kubectl apply -f mysql-pv.yaml'
                     sh 'kubectl apply -f mysql-pv-claim.yaml'
                     sh 'kubectl apply -f mysql-deployment.yaml'
                     sh 'kubectl apply -f mysql-service.yaml'
