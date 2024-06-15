@@ -105,8 +105,9 @@ stage('Deploy Backend to Kubernetes') {
                     sh './kubectl apply -f mysql-pv-claim.yaml'
                     sh './kubectl apply -f mysql-deployment.yaml'
                     sh './kubectl apply -f mysql-service.yaml'
-                    sh './kubectl apply -f deployment-backend.yaml'
                     sh './kubectl apply -f backend-service.yaml'
+                    sh './kubectl apply -f deployment-backend.yaml'
+                    
                     
                   
 
