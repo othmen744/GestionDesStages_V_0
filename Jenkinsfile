@@ -98,6 +98,8 @@ stage('Deploy Backend to Kubernetes') {
                 
                     
                     // Reapply configurations
+                    sh './kubectl apply -f manual-storageclass.yaml'
+
                     sh './kubectl apply -f mysql-storage.yaml'
                     sh './kubectl apply -f mysql-configMap.yaml'
                     sh './kubectl apply -f mysql-secrets.yaml'
