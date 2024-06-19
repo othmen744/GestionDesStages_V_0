@@ -95,9 +95,8 @@ stage('Deploy Backend to Kubernetes') {
                     sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                     sh 'chmod u+x ./kubectl'
                     // Reapply configurations
-                
-                    
-                   sh './kubectl apply -f manual-storageclass.yaml'
+
+                    sh './kubectl apply -f manual-storageclass.yaml'
                     sh './kubectl apply -f mysql-storage.yaml'
                     sh './kubectl apply -f mysql-configMap.yaml'
                     sh './kubectl apply -f mysql-secrets.yaml'
@@ -105,6 +104,9 @@ stage('Deploy Backend to Kubernetes') {
                     sh './kubectl apply -f mysql-pv-claim.yaml'
                     sh './kubectl apply -f mysql-deployment.yaml'
                     
+                    // Wait for MySQL to be ready
+                    sh './kubectl rollout status deployment/mysql'
+
                     // Delete existing service
                     sh './kubectl delete service mysql || true'  // Ignore error if service doesn't exist
                     
@@ -112,13 +114,6 @@ stage('Deploy Backend to Kubernetes') {
                     sh './kubectl apply -f mysql-service.yaml'
                     sh './kubectl apply -f backend-service.yaml'
                     sh './kubectl apply -f deployment-backend.yaml'
-                    
-                  
-
-                    
-
-
-            
                     
                 }
             }
