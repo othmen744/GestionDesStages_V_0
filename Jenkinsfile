@@ -96,24 +96,22 @@ stage('Deploy Backend to Kubernetes') {
                     sh 'chmod u+x ./kubectl'
                     // Reapply configurations
 
-                    sh './kubectl apply -f manual-storageclass.yaml'
-                    sh './kubectl apply -f mysql-storage.yaml'
-                    sh './kubectl apply -f mysql-configMap.yaml'
-                    sh './kubectl apply -f mysql-secrets.yaml'
-                    sh './kubectl apply -f mysql-pv.yaml'
-                    sh './kubectl apply -f mysql-pv-claim.yaml'
-                    sh './kubectl apply -f mysql-deployment.yaml'
-                    
-                    // Wait for MySQL to be ready
-                    sh './kubectl rollout status deployment/mysql'
+                    // Apply MySQL resources
+                      sh './kubectl apply -f mysql-storageclass.yaml'
+                      sh './kubectl apply -f mysql-pv.yaml'
+                      sh './kubectl apply -f mysql-pv-claim.yaml'
+                      sh './kubectl apply -f mysql-configMap.yaml'
+                      sh './kubectl apply -f mysql-secrets.yaml'
+                      sh './kubectl apply -f mysql-deployment.yaml'
+                      sh './kubectl apply -f mysql-service.yaml'
 
-                    // Delete existing service
-                    sh './kubectl delete service mysql || true'  // Ignore error if service doesn't exist
-                    
-                    // Apply the service configuration
-                    sh './kubectl apply -f mysql-service.yaml'
-                    sh './kubectl apply -f backend-service.yaml'
-                    sh './kubectl apply -f deployment-backend.yaml'
+// Check MySQL deployment status
+                       sh './kubectl rollout status deployment/mysql'
+
+// Apply backend resources
+                       sh './kubectl apply -f backend-service.yaml'
+                       sh './kubectl apply -f deployment-backend.yaml'
+
                     
                 }
             }
