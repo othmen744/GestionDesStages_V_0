@@ -94,25 +94,22 @@ stage('Deploy Backend to Kubernetes') {
                 withKubeConfig([credentialsId: 'SECRET_TOKEN', serverUrl: 'https://10.0.0.10:6443']) {
                     sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                     sh 'chmod u+x ./kubectl'
-                    // Reapply configurations
 
                     // Apply MySQL resources
-                      sh './kubectl apply -f mysql-storage.yaml.yaml'
-                      sh './kubectl apply -f mysql-pv.yaml'
-                      sh './kubectl apply -f mysql-pv-claim.yaml'
-                      sh './kubectl apply -f mysql-configMap.yaml'
-                      sh './kubectl apply -f mysql-secrets.yaml'
-                      sh './kubectl apply -f mysql-deployment.yaml'
-                      sh './kubectl apply -f mysql-service.yaml'
+                    sh './kubectl apply -f mysql-storage.yaml'
+                    sh './kubectl apply -f mysql-pv.yaml'
+                    sh './kubectl apply -f mysql-pv-claim.yaml'
+                    sh './kubectl apply -f mysql-configMap.yaml'
+                    sh './kubectl apply -f mysql-secrets.yaml'
+                    sh './kubectl apply -f mysql-deployment.yaml'
+                    sh './kubectl apply -f mysql-service.yaml'
 
-// Check MySQL deployment status
-                       sh './kubectl rollout status deployment/mysql'
+                    // Check MySQL deployment status
+                    sh './kubectl rollout status deployment/mysql'
 
-// Apply backend resources
-                       sh './kubectl apply -f backend-service.yaml'
-                       sh './kubectl apply -f deployment-backend.yaml'
-
-                    
+                    // Apply backend resources
+                    sh './kubectl apply -f backend-service.yaml'
+                    sh './kubectl apply -f deployment-backend.yaml'
                 }
             }
         }
