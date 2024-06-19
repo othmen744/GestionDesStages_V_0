@@ -97,7 +97,7 @@ stage('Deploy Backend to Kubernetes') {
                     // Reapply configurations
 
                     // Apply MySQL resources
-                      sh './kubectl apply -f mysql-storageclass.yaml'
+                      sh './kubectl apply -f mysql-storage.yaml.yaml'
                       sh './kubectl apply -f mysql-pv.yaml'
                       sh './kubectl apply -f mysql-pv-claim.yaml'
                       sh './kubectl apply -f mysql-configMap.yaml'
