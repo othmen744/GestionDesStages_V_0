@@ -4,13 +4,11 @@ metadata:
   name: mysql
   labels:
     app: mysql
-    tier: database
 spec:
   type: NodePort
   ports:
     - port: 3306
       targetPort: 3306
-      nodePort: 30001  # Choose a nodePort in the range 30000-32767
+      nodePort: 30007 # or another valid port in the range 30000-32767
   selector:
     app: mysql
-    tier: database
