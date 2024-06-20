@@ -6,11 +6,11 @@ metadata:
     app: mysql
     tier: database
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: 3306
       targetPort: 3306
+      nodePort: 30001  # Choose a nodePort in the range 30000-32767
   selector:
     app: mysql
     tier: database
-
