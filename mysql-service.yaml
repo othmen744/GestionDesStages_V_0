@@ -6,11 +6,11 @@ metadata:
     app: mysql
     tier: database
 spec:
- type: LoadBalancer
+  type: LoadBalancer
   ports:
     - port: 3306
       targetPort: 3306
   selector:
     app: mysql
     tier: database
-  clusterIP: None
+
