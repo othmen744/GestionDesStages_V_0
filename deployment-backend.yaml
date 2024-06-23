@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: oth007/gestiondesstages_v_0:karoui
+        image: oth007/gestiondesstages_v_0:latest
         imagePullPolicy: Always
         env:
         - name: SPRING_DATASOURCE_URL
