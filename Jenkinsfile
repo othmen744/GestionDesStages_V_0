@@ -33,12 +33,6 @@ pipeline {
             }
         }
 
-        stage('Deploy to Nexus') {
-            steps {
-                sh "mvn deploy -Dusername=admin -Dpassword=othmen199800"
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
