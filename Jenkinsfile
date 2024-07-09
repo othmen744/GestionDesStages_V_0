@@ -66,23 +66,21 @@ pipeline {
         }
     }
 }
- stage('Pull MySQL Image') {
-    steps {
-        script {
-            // Stop and remove any existing MySQL containers
-            sh '''
-            existing_mysql_containers=$(docker ps -q --filter ancestor=mysql)
-            if [ ! -z "$existing_mysql_containers" ]; then
-                docker stop $existing_mysql_containers
-                docker rm $existing_mysql_containers
-            fi
-            '''
-
-            // Pull the latest MySQL image
-            sh 'docker pull mysql:latest'
+stage('Ensure kubectl is available') {
+            steps {
+                script {
+                    sh '''
+                    if [ ! -f ./kubectl ]; then
+                        echo "kubectl not found, downloading..."
+                        curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"
+                        chmod u+x ./kubectl
+                    else
+                        echo "kubectl is already downloaded"
+                    fi
+                    '''
+                }
+            }
         }
-    }
-}
 stage('Deploy Backend to Kubernetes') {
             steps {
                 withKubeConfig([credentialsId: 'SECRET_TOKEN', serverUrl: 'https://10.0.0.10:6443']) {
