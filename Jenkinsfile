@@ -66,24 +66,12 @@ pipeline {
         }
     }
 }
-stage('Ensure kubectl is available') {
-            steps {
-                script {
-                    sh '''
-                    if [ ! -f ./kubectl ]; then
-                        echo "kubectl not found, downloading..."
-                        curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"
-                        chmod u+x ./kubectl
-                    else
-                        echo "kubectl is already downloaded"
-                    fi
-                    '''
-                }
-            }
-        }
 stage('Deploy Backend to Kubernetes') {
             steps {
                 withKubeConfig([credentialsId: 'SECRET_TOKEN', serverUrl: 'https://10.0.0.10:6443']) {
+
+                    sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
+                    sh 'chmod u+x ./kubectl'
 
                     // Apply MySQL resources
                     sh './kubectl apply -f mysql-storage.yaml'
