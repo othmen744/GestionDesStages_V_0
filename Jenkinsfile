@@ -32,6 +32,12 @@ pipeline {
                 jacoco(execPattern: 'target/jacoco.exec')
             }
         }
+         stage('OWASP SCAN') {
+            steps {
+                dependencyCheck additionalArguments: '', odcInstallation: 'DP-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
