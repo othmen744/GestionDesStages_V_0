@@ -24,6 +24,11 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Nexus') {
+            steps {
+                sh "mvn deploy -Dusername=admin -Dpassword=othmen199800"
+            }
+        }
         
         stage('Run JUnit and JaCoCo tests') {
             steps {
