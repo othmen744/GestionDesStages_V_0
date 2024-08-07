@@ -165,7 +165,7 @@ pipeline {
     }
     post {
         always {
-         // cleanWs()
+          cleanWs()
          }
     }
 }
