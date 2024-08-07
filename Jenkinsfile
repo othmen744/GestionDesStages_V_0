@@ -2,6 +2,9 @@ pipeline {
     agent any
     environment {
         TOMCAT_PORT = '9090'
+        DOCKER_REGISTRY = 'localhost:5000' // Address of your local Docker registry
+        IMAGE_NAME = 'gestiondesstages_v_0'
+        IMAGE_TAG = 'karoui'
     }
     stages {
 
@@ -61,6 +64,21 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 sh 'docker push oth007/gestiondesstages_v_0:karoui'
+            }
+        }
+        stage('Tag Docker Image') {
+            steps {
+                script {
+                    sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+                }
             }
         }
         
