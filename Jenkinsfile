@@ -94,30 +94,66 @@ pipeline {
         }
     }
 }
-stage('Deploy Backend to Kubernetes') {
+ stage('Deploy Backend to Kubernetes') {
             steps {
                 withKubeConfig([credentialsId: 'SECRET_TOKEN', serverUrl: 'https://10.0.0.10:6443']) {
-                 script {
+                    script {
                         try {
-                    sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
-                    sh 'chmod u+x ./kubectl'
+                            def result = sh(script: 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"', returnStatus: true)
+                            if (result != 0) {
+                                error "Download kubectl failed with exit code ${result}"
+                            }
+                            result = sh(script: 'chmod u+x ./kubectl', returnStatus: true)
+                            if (result != 0) {
+                                error "Make kubectl executable failed with exit code ${result}"
+                            }
 
-                    // Apply MySQL resources
-                    sh './kubectl apply -f mysql-storage.yaml'
-                    sh './kubectl apply -f mysql-pv.yaml'
-                    sh './kubectl apply -f mysql-pv-claim-new.yaml'
-                    sh './kubectl apply -f mysql-configMap.yaml'
-                    sh './kubectl apply -f mysql-secrets.yaml'
-                    sh './kubectl apply -f mysql-deployment.yaml'
-                    sh './kubectl apply -f mysql-service.yaml'
+                            // Apply MySQL resources
+                            result = sh(script: './kubectl apply -f mysql-storage.yaml', returnStatus: true)
+                            if (result != 0) {
+                                error "Apply mysql-storage.yaml failed with exit code ${result}"
+                            }
+                            result = sh(script: './kubectl apply -f mysql-pv.yaml', returnStatus: true)
+                            if (result != 0) {
+                                error "Apply mysql-pv.yaml failed with exit code ${result}"
+                            }
+                            result = sh(script: './kubectl apply -f mysql-pv-claim-new.yaml', returnStatus: true)
+                            if (result != 0) {
+                                error "Apply mysql-pv-claim-new.yaml failed with exit code ${result}"
+                            }
+                            result = sh(script: './kubectl apply -f mysql-configMap.yaml', returnStatus: true)
+                            if (result != 0) {
+                                error "Apply mysql-configMap.yaml failed with exit code ${result}"
+                            }
+                            result = sh(script: './kubectl apply -f mysql-secrets.yaml', returnStatus: true)
+                            if (result != 0) {
+                                error "Apply mysql-secrets.yaml failed with exit code ${result}"
+                            }
+                            result = sh(script: './kubectl apply -f mysql-deployment.yaml', returnStatus: true)
+                            if (result != 0) {
+                                error "Apply mysql-deployment.yaml failed with exit code ${result}"
+                            }
+                            result = sh(script: './kubectl apply -f mysql-service.yaml', returnStatus: true)
+                            if (result != 0) {
+                                error "Apply mysql-service.yaml failed with exit code ${result}"
+                            }
 
-                    // Check MySQL deployment status
-                    sh './kubectl rollout status deployment/mysql'
+                            // Check MySQL deployment status
+                            result = sh(script: './kubectl rollout status deployment/mysql', returnStatus: true)
+                            if (result != 0) {
+                                error "Check MySQL deployment status failed with exit code ${result}"
+                            }
 
-                    // Apply backend resources
-                    sh './kubectl apply -f backend-service.yaml'
-                    sh './kubectl apply -f deployment-backend.yaml'
-                } catch (Exception e) {
+                            // Apply backend resources
+                            result = sh(script: './kubectl apply -f backend-service.yaml', returnStatus: true)
+                            if (result != 0) {
+                                error "Apply backend-service.yaml failed with exit code ${result}"
+                            }
+                            result = sh(script: './kubectl apply -f deployment-backend.yaml', returnStatus: true)
+                            if (result != 0) {
+                                error "Apply deployment-backend.yaml failed with exit code ${result}"
+                            }
+                        } catch (Exception e) {
                             echo "Error during Kubernetes deployment: ${e.message}"
                             currentBuild.result = 'FAILURE'
                             throw e
@@ -128,8 +164,8 @@ stage('Deploy Backend to Kubernetes') {
         }
     }
     post {
-        always {
-            cleanWs()
-        }
+       // always {
+        // cleanWs()
+        // }
     }
 }
