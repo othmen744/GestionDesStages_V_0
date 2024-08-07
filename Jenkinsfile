@@ -97,7 +97,8 @@ pipeline {
 stage('Deploy Backend to Kubernetes') {
             steps {
                 withKubeConfig([credentialsId: 'SECRET_TOKEN', serverUrl: 'https://10.0.0.10:6443']) {
-
+                 script {
+                        try {
                     sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                     sh 'chmod u+x ./kubectl'
 
