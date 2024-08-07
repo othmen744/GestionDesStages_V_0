@@ -117,14 +117,14 @@ stage('Deploy Backend to Kubernetes') {
                     sh './kubectl apply -f backend-service.yaml'
                     sh './kubectl apply -f deployment-backend.yaml'
                 } catch (Exception e) {
-                      echo "Error during Kubernetes deployment: ${e.message}"
-                      currentBuild.result = 'FAILURE'
-                      throw e
+                            echo "Error during Kubernetes deployment: ${e.message}"
+                            currentBuild.result = 'FAILURE'
+                            throw e
                         }
+                    }
+                }
             }
         }
-
-        
     }
     post {
         always {
