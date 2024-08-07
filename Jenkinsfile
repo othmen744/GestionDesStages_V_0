@@ -68,13 +68,14 @@ pipeline {
         }
         stage('Tag Docker Image') {
             steps {
-                     sh 'docker tag gestiondesstages_v_0:karoui localhost:5000/gestiondesstages_v_0:karoui'                }
+                  sh 'docker tag oth007/gestiondesstages_v_0:karoui localhost:5000/oth007/gestiondesstages_v_0:karoui'
+               }
     
         }
 
         stage('Push Docker-registry Image') {
             steps {
-                    sh 'docker push localhost:5000/gestiondesstages_v_0:karoui'
+                    sh 'docker push 192.168.33.10:5000/oth007/gestiondesstages_v_0:karoui'
                 
             }
         }
