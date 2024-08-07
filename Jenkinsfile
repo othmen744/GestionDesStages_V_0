@@ -116,8 +116,7 @@ stage('Deploy Backend to Kubernetes') {
                     // Apply backend resources
                     sh './kubectl apply -f backend-service.yaml'
                     sh './kubectl apply -f deployment-backend.yaml'
-                }
-                    catch (Exception e) {
+                } catch (Exception e) {
                       echo "Error during Kubernetes deployment: ${e.message}"
                       currentBuild.result = 'FAILURE'
                       throw e
