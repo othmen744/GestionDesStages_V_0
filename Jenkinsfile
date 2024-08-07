@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         TOMCAT_PORT = '9090'
-        DOCKER_REGISTRY = 'localhost:5000' // Address of your local Docker registry
+        DOCKER_REGISTRY = '192.168.33.10:5000' // Address of your local Docker registry
         IMAGE_NAME = 'gestiondesstages_v_0'
         IMAGE_TAG = 'karoui'
     }
