@@ -68,17 +68,14 @@ pipeline {
         }
         stage('Tag Docker Image') {
             steps {
-                script {
-                    sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
-                }
-            }
+                     sh 'docker tag gestiondesstages_v_0:karoui localhost:5000/gestiondesstages_v_0:karoui'                }
+    
         }
 
-        stage('Push Docker Image') {
+        stage('Push Docker-registry Image') {
             steps {
-                script {
-                    sh "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
-                }
+                    sh 'docker push localhost:5000/gestiondesstages_v_0:karoui'
+                
             }
         }
         
