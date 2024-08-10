@@ -96,7 +96,7 @@ pipeline {
 }
  stage('Deploy Backend to Kubernetes') {
             steps {
-                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', credentialsId: 'SECRET_TOKEN', namespace: 'default', serverUrl: 'https://10.0.0.10:6443']]) {
+               withKubeConfig([credentialsId: 'SECRET_TOKEN', serverUrl: 'https://10.0.0.10:6443']) {
                     script {
                         try {
                             def result = sh(script: 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"', returnStatus: true)
