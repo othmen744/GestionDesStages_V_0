@@ -5,7 +5,6 @@ pipeline {
         DOCKER_REGISTRY = '192.168.33.10:5000' // Address of your local Docker registry
         IMAGE_NAME = 'gestiondesstages_v_0'
         IMAGE_TAG = 'karoui'
-        KUBECONFIG = '/home/vagrant/.kube/config'
     }
     stages {
 
